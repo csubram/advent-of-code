@@ -1,12 +1,12 @@
 use std::fs::File;
 use std::io::{prelude::*, BufReader};
+use std::time::Instant;
 
-fn get_gamma_rate() -> i32 {
-    let input_vec = read_input_into_vector();
+fn get_gamma_rate(input: &Vec<i32>) -> i32 {
     let mut gamma:i32 = 0;
 
     for index in (0..11).rev() {
-        gamma += most_common_nth_bit(&input_vec, &index);
+        gamma += most_common_nth_bit(&input, &index);
         gamma <<= 1;
     }
     
@@ -73,15 +73,21 @@ fn get_og_co_rating(input: &Vec<i32>, predicate: &dyn Fn(&Vec<i32>, &i32) -> i32
 }
 
 fn main() {
+    let start = Instant::now();
+
+    let input_vec = read_input_into_vector();
+
     let mask: i32 = 0b1111_1111_1111;
-    let gamma: i32 = get_gamma_rate();
+    let gamma: i32 = get_gamma_rate(&input_vec);
     let epsilon: i32 = gamma ^ mask;
 
     println!("Power consumption is: {}", gamma * epsilon);
 
-    let input_vec = read_input_into_vector();
     let oxygen_generator_rating: i32 = get_og_co_rating(&input_vec, &most_common_nth_bit);
     let co2_scrubber_rating: i32 = get_og_co_rating(&input_vec, &least_common_nth_bit);
 
     println!("Life support rating is: {}", oxygen_generator_rating * co2_scrubber_rating);
+
+    let elapsed = start.elapsed();
+    println!("{:.2?} seconds for day 3", elapsed);
 }

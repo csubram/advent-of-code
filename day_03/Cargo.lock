@@ -5,3 +5,21 @@ version = 3
 [[package]]
 name = "day_03"
 version = "0.1.0"
+dependencies = [
+ "time",
+]
+
+[[package]]
+name = "libc"
+version = "0.2.109"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f98a04dce437184842841303488f70d0188c5f51437d2a834dc097eafa909a01"
+
+[[package]]
+name = "time"
+version = "0.3.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "41effe7cfa8af36f439fac33861b66b049edc6f9a32331e2312660529c1c24ad"
+dependencies = [
+ "libc",
+]
